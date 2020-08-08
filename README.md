@@ -22,7 +22,7 @@
 
 ### repository
 
-Repository to store. Default is github.repository [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
+Repository to store. Default is `github.repository` [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
 
 ## Examples
 
