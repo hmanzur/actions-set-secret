@@ -18,7 +18,7 @@
 
 ### token
 
-** Required ** Repository [Access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+**Required** Repository [Access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 
 ### repository
 
