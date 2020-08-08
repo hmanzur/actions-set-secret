@@ -1,10 +1,9 @@
-FROM node:${version}
+FROM node:lts-alpine
 
 ARG name
 ARG value
 ARG token
 ARG repo
-ARG version="lts"
 
 ENV REPO_ACCESS_TOKEN=$token
 ENV REPO=$repo
