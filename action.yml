@@ -22,6 +22,10 @@ inputs:
     default: github.repository
     required: false
 
+  token:
+    description: Repository access token
+    required: true
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

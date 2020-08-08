@@ -15,9 +15,14 @@
 
 **Required** Secret value to store.
 
+
+### token
+
+** Required ** Repository [Access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+
 ### repository
 
-**Required** Repository to store. Default is github.repository [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
+Repository to store. Default is github.repository [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
 
 ## Examples
 
@@ -27,6 +32,5 @@ with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
   repository: hmanzur/actions-set-secret
-env:
-  REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+  token: ${{ secrets.REPO_ACCESS_TOKEN }}
 ```
