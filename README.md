@@ -27,4 +27,6 @@ with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
   repository: hmanzur/actions-set-secret
+env:
+  REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
 ```
