@@ -7,7 +7,7 @@
 
 ### Inputs
 
-### `name`
+### name
 
 **Required** Secret name.
 
