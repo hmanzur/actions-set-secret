@@ -1,0 +1,28 @@
+name: 'Set Action'
+
+author: Habid Manzur
+
+description: 'Create or update secrets in github repository'
+
+branding:
+  icon: 'github'
+  color: 'white'
+
+inputs:
+  name:
+    description: ''
+    required: true
+
+  value:
+    description: ''
+    required: true
+
+  repository:
+    description: ''
+    default: github.repository
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}

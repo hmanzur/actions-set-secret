@@ -1,0 +1,8 @@
+{
+  "name": "secret-updater",
+  "version": "1.0.0",
+  "dependencies": {
+    "@octokit/core": "^3.1.2",
+    "tweetsodium": "0.0.5"
+  }
+}
