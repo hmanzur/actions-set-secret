@@ -1,25 +1,26 @@
-name: 'Set Action'
+name: 'Set Action Secret'
 
 author: Habid Manzur
 
 description: 'Create or update secrets in github repository'
 
 branding:
-  icon: 'github'
-  color: 'white'
+  icon: lock
+  color: gray-dark
 
 inputs:
   name:
-    description: ''
+    description: Secret name
     required: true
 
   value:
-    description: ''
+    description: Secret value
     required: true
 
   repository:
-    description: ''
+    description: Repository name
     default: github.repository
+    required: false
 
 runs:
   using: 'docker'
