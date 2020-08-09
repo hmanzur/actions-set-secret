@@ -17,6 +17,7 @@ jobs:
         name: 'MY_SECRET_NAME'
         value: 'Lorem ipsun dolor simit'
         token: ${{ secrets.GH_ACCESS_TOKEN }}
+        push_to_org: true
     
     - run: echo ${{ secrets.MY_SECRET_NAME }}
 
