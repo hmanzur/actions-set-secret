@@ -22,8 +22,22 @@ const createSecret = async(key_id, key, secret) => {
 }
 
 const setSecret = (data) => {
-  return octokit.request('PUT /repos/{repo}/actions/secrets/{name}', {
-    repo: process.env.REPO,
+  let push_to_org = process.env.PUSH_TO_ORG;
+
+  let url = 'PUT '
+
+  if(push_to_org) {
+    let owner = process.env.OWNER;
+    url += '/org/' + owner;
+  }
+  else {
+    let repo = process.env.REPO;
+    url += '/repos/' + repo;
+  }
+
+  url += '/actions/secrets/{name}'
+
+  return octokit.request(url, {
     name: process.env.SECRET_NAME,
     data
   })
