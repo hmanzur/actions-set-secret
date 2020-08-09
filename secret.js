@@ -3,7 +3,6 @@ const core = require("@actions/core");
 
 const name = core.getInput("name");
 const value = core.getInput("value");
-const push_to_org = core.getInput("push_to_org");
 const token = core.getInput("token");
 
 const sodium = require('tweetsodium')
@@ -22,6 +21,14 @@ if(repository == 'false'){
 let owner = core.getInput("owner");
 if(owner == 'false'){
   owner = ownerName;
+}
+
+let push_to_org = core.getInput("push_to_org");
+if(push_to_org == 'false'){
+  push_to_org = false;
+}
+else{
+  push_to_org = true;
 }
 
 
@@ -89,3 +96,16 @@ const boostrap = async () => {
 
 
 boostrap()
+  .then(
+    result => {
+      // eslint-disable-next-line no-console
+      console.log(result);
+    },
+    err => {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+  )
+  .then(() => {
+    process.exit();
+  });
