@@ -22,6 +22,16 @@ inputs:
     default: github.repository
     required: false
 
+  owner:
+    description: Owner of repository
+    default: github.repository_owner
+    required: false
+
+  push_to_org:
+    description: Flag to use organization endpoint for secret
+    default: false
+    required: false
+
   token:
     description: Repository access token
     required: true
