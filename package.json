@@ -2,6 +2,7 @@
   "name": "secret-updater",
   "version": "1.0.0",
   "dependencies": {
+    "@octokit/core": "^3.1.2",
     "@actions/core": "^1.0.0",
     "tweetsodium": "0.0.5"
   }
