@@ -11,8 +11,23 @@ const sodium = require('tweetsodium')
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit({ auth: token })
 
-const getPublicKey = async(repo) => {
-  let { data } = await octokit.request('GET /repos/:repo/actions/secrets/public-key', { repo })
+
+function get_() {
+  if(push_to_org) {
+    return '/org/' + owner;
+  }
+  else {
+    return '/repos/' + repository;
+  }
+}
+
+const getPublicKey = async() => {
+
+  let url = "GET "
+  url += get_()
+  url += "/actions/secrets/public-key"
+
+  let { data } = await octokit.request(url)
 
   return data;
 }
@@ -31,32 +46,23 @@ const createSecret = async(key_id, key, secret) => {
 }
 
 const setSecret = (data) => {
-  let push_to_org = process.env.PUSH_TO_ORG;
 
   let url = 'PUT '
 
-  if(push_to_org) {
-    let owner = process.env.OWNER;
-    url += '/org/' + owner;
-  }
-  else {
-    let repo = process.env.REPO;
-    url += '/repos/' + repo;
-  }
+  url += get_()
 
-  url += '/actions/secrets/{name}'
+  url += '/actions/secrets/' + name
 
   return octokit.request(url, {
-    name: process.env.SECRET_NAME,
     data
   })
 }
 
 const boostrap = async () => {
   try {
-    const {key_id, key} = await getPublicKey(process.env.REPO)
+    const {key_id, key} = await getPublicKey()
 
-    const data = await createSecret(key_id, key, process.env.SECRET_VALUE)
+    const data = await createSecret(key_id, key, value)
 
     const response = await setSecret(data)
 
