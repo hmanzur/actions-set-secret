@@ -19,7 +19,7 @@ jobs:
         uses: ./
         with:
           name:  LAST_RUNNER_ID
-          value: {{ github.run_id }}
+          value: ${{ github.run_id }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
       - name: Repository Dispatch
