@@ -22,6 +22,11 @@ inputs:
     default: github.repository
     required: false
 
+  org:
+    description: Indicate is an organization repo
+    default: false
+    required: false
+
   token:
     description: Repository access token
     required: true

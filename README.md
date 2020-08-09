@@ -22,7 +22,12 @@
 
 ### repository
 
-Repository to store. Default is `github.repository` [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
+Repository to store. Default `github.repository` [context](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context)
+
+### org
+
+Indicates the repo is an [organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-organizations). Default `false`
+
 
 ## Examples
 
@@ -33,4 +38,5 @@ with:
   value: 'Lorem ipsun dolor simit'
   repository: hmanzur/actions-set-secret
   token: ${{ secrets.REPO_ACCESS_TOKEN }}
+  org: true
 ```

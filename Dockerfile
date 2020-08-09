@@ -1,14 +1,10 @@
 FROM node:lts-alpine
 
+ARG repository
 ARG name
 ARG value
 ARG token
-ARG repo
-
-ENV REPO_ACCESS_TOKEN=$token
-ENV REPO=$repo
-ENV SECRET_NAME=$name
-ENV SECRET_VALUE=$value
+ARG org
 
 COPY src ./
 
@@ -16,4 +12,4 @@ COPY package*.json ./
 
 RUN npm install --only=production
 
-CMD ["node", "secret.js"]
+CMD ["node", "secret.js", "$repository", "$name", "$value", "$token", "$org"]
