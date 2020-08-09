@@ -87,7 +87,11 @@ const boostrap = async () => {
   try {
     const {key_id, key} = await getPublicKey()
 
-    const data = await createSecret(key_id, key, value)
+    let data = await createSecret(key_id, key, value)
+
+    if(push_to_org){
+      data['visibility'] = 'all'
+    }
 
     const response = await setSecret(data)
 
