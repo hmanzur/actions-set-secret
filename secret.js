@@ -14,8 +14,15 @@ const context = github.context;
 const repoName = context.payload.repository.name;
 const ownerName = context.payload.repository.owner.login;
 
-const repository = core.getInput("repository") ? core.getInput("repository"): repoName;
-const owner = core.getInput("owner") ? core.getInput("owner"): ownerName;
+let repository = core.getInput("repository");
+if(repository == 'false'){
+  repository = repoName;
+}
+
+let owner = core.getInput("owner");
+if(owner == 'false'){
+  owner = ownerName;
+}
 
 
 function get_() {
