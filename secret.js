@@ -37,7 +37,7 @@ function get_() {
     return '/orgs/' + owner;
   }
   else {
-    return '/repos/' + repository;
+    return '/repos/' + owner + '/' + repository;
   }
 }
 
