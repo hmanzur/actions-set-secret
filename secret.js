@@ -1,4 +1,3 @@
-const github = require("@actions/github");
 const core = require("@actions/core");
 
 const name = core.getInput("name");
@@ -8,9 +7,9 @@ const owner = core.getInput("owner");
 const push_to_org = core.getInput("push_to_org");
 const token = core.getInput("token");
 
-const octokit = new github.GitHub(token);
-
 const sodium = require('tweetsodium')
+const { Octokit } = require('@octokit/core')
+const octokit = new Octokit({ auth: token })
 
 const getPublicKey = async(repo) => {
   let { data } = await octokit.request('GET /repos/:repo/actions/secrets/public-key', { repo })
