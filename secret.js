@@ -34,7 +34,7 @@ else{
 
 function get_() {
   if(push_to_org) {
-    return '/org/' + owner;
+    return '/orgs/' + owner;
   }
   else {
     return '/repos/' + repository;
@@ -43,9 +43,14 @@ function get_() {
 
 const getPublicKey = async() => {
 
+  console.log(repository)
+
+
   let url = "GET "
   url += get_()
   url += "/actions/secrets/public-key"
+
+  console.log(url)
 
   let { data } = await octokit.request(url)
 
