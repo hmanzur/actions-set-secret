@@ -9,7 +9,6 @@ jobs:
   test:
     name: Test Action
     runs-on: ubuntu-latest
-    needs: dockerfile
 
     steps:
       - name: Checkout
