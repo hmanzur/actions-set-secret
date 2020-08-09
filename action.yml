@@ -19,12 +19,12 @@ inputs:
 
   repository:
     description: Repository name
-    default: github.repository
+    default: false
     required: false
 
   owner:
     description: Owner of repository
-    default: github.repository_owner
+    default: false
     required: false
 
   push_to_org:

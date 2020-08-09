@@ -1,15 +1,21 @@
+const github = require("@actions/github");
 const core = require("@actions/core");
 
 const name = core.getInput("name");
 const value = core.getInput("value");
-const repository = core.getInput("repository");
-const owner = core.getInput("owner");
 const push_to_org = core.getInput("push_to_org");
 const token = core.getInput("token");
 
 const sodium = require('tweetsodium')
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit({ auth: token })
+
+const context = github.context;
+const repoName = context.payload.repository.name;
+const ownerName = context.payload.repository.owner.login;
+
+const repository = core.getInput("repository") ? core.getInput("repository"): repoName;
+const owner = core.getInput("owner") ? core.getInput("owner"): ownerName;
 
 
 function get_() {
