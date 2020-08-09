@@ -9,6 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
+    - run: npm install
+
     - name: Test the action
       uses: ./.
       with:
