@@ -1,0 +1,20 @@
+name: Sandbox
+
+on:
+  [push]
+
+jobs:
+  sandbox:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Test the action
+      uses: ./.
+      with:
+        name: 'MY_SECRET_NAME'
+        value: 'Lorem ipsun dolor simit'
+        token: ${{ secrets.GH_ACCESS_TOKEN }}
+    
+    - run: echo ${{ secrets.MY_SECRET_NAME }}
+
