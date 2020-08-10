@@ -32,7 +32,7 @@ Indicates the repo is an [organization](https://docs.github.com/en/github/settin
 ## Examples
 
 ```YAML
-uses: hmanzur/actions-set-secret@v1.0.0
+uses: hmanzur/actions-set-secret@v2.0.0
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
