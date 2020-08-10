@@ -1,7 +1,7 @@
 const sodium = require('tweetsodium')
 const { Octokit } = require('@octokit/core')
 
-const [repo, secret_name, secret_value, auth, org=false] = process.argv;
+const [repo, secret_name, secret_value, auth, org=false] = process.argv.slice(2);
 
 const octokit = new Octokit({ auth })
 
@@ -13,7 +13,7 @@ const octokit = new Octokit({ auth })
  * @returns {Promise<{data:Object}>}
  */
 const getPublicKey = async(repo, org=false) => {
-  let { data } = await octokit.request('GET /{base}/:repo/actions/secrets/public-key', {
+  let { data } = await octokit.request('GET /:base/:repo/actions/secrets/public-key', {
     base: org ? 'orgs': 'repos',
     repo
   })
@@ -53,7 +53,7 @@ const createSecret = async(key_id, key, name, value) => {
  * @returns {Promise} - Fetch Response
  */
 const setSecret = (data, repo, name, org) => {
-  return octokit.request('PUT /{base}/{repo}/actions/secrets/{name}', {
+  return octokit.request('PUT /:base/:repo/actions/secrets/:name', {
     base: org ? 'orgs': 'repos',
     repo,
     name,
@@ -79,8 +79,14 @@ const boostrap = async () => {
 
   }catch (e) {
     console.error(e)
-    exit(1)
+    process.exit(1)
   }
 }
 
-boostrap()
+if (repo && secret_name && secret_value && auth) {
+  boostrap()
+} else {
+  console.error('Not enough args')
+  process.exit(1)
+}
+
