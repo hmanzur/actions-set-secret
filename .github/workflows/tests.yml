@@ -1,0 +1,22 @@
+name: "Setup Secret"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  pretest:
+    name: Set Secret test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test Action
+        uses: ./
+        with:
+          name:  LAST_RUN_ID
+          value: ${{ github.run_id }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
