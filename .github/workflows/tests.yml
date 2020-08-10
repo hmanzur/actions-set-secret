@@ -17,6 +17,6 @@ jobs:
       - name: Test Action
         uses: ./
         with:
-          name:  ${{ github.run_id }}
+          name:  LAST_RUN_ID
           value: ${{ github.run_id }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
