@@ -24,15 +24,19 @@ inputs:
 
   org:
     description: Indicate is an organization repo
-    default: false
     required: false
 
   token:
     description: Repository access token
     required: true
 
+outputs:
+  code:
+    description: Status code
+
+  data:
+    description: Response data
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.command }}
+  using: 'node12'
+  main: 'index.js'
