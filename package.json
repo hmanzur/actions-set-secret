@@ -1,6 +1,8 @@
 {
   "name": "secret-updater",
   "version": "1.0.0",
+  "repository": "https://github.com/hmanzur/actions-set-secret",
+  "license": "MIT License",
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^4.0.0",
