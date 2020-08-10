@@ -9,7 +9,6 @@ jobs:
   pretest:
     name: Set Secret test
     runs-on: ubuntu-latest
-    needs: dockerfile
 
     steps:
       - name: Checkout
@@ -28,6 +27,9 @@ jobs:
     needs: pretest
 
     steps:
+      - name: Last Runner id
+        run: echo ${{ secrets.LAST_RUNNER_ID }}
+
       - name: Validate Stored Secret
         if: ${{ secrets.LAST_RUNNER_ID }} != ${{ github.event.client_payload.ref }}
         run: exit 1
