@@ -19,7 +19,7 @@ inputs:
 
   repository:
     description: Repository name
-    default: github.repository
+    default: ${{ github.repository }}
     required: false
 
   org:
