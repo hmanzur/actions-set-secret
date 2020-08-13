@@ -11,19 +11,19 @@ module.exports = class Api {
    * @param {any} auth - Auth method
    * @param {string} repo - Repository in format username/repo-name
    * @param {boolean} org - Is a Organization
-   * @returns {Promise<{data:Object}>}
+   * @returns {Promise<{data: object}>} - Fetch response
    */
-  constructor(auth, repo, org=false) {
+  constructor(auth, repo, org = false) {
     this.octokit = new Octokit({ auth })
     this._repo = repo
     this._org = org
-    this._base = org ? 'orgs': 'repos'
+    this._base = org ? 'orgs' : 'repos'
   }
 
   /**
    * Generate public key to store secrets
    *
-   * @returns {Promise<{data:Object}>}
+   * @returns {Promise<{data: object}>} - Fetch response
    */
   async getPublicKey() {
     let { data } = await this.octokit.request('GET /:base/:repo/actions/secrets/public-key', {
@@ -31,7 +31,7 @@ module.exports = class Api {
       repo: this._repo
     })
 
-    return data;
+    return data
   }
 
   /**
@@ -70,5 +70,14 @@ module.exports = class Api {
       name,
       data
     })
+  }
+
+  /**
+   * Organization checker
+   *
+   * @returns {boolean} - Is organization
+   */
+  isOrg() {
+    return this._org
   }
 }

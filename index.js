@@ -4,6 +4,9 @@ const Api = require('./src/api')
 /**
  * Set secrets in Github repo
  *
+ * @param {Api} api - Api instance
+ * @param {string} secret_name - Secret key name
+ * @param {string} secret_value - Secret raw value
  * @see https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret
  */
 const boostrap = async (api, secret_name, secret_value) => {
@@ -28,11 +31,11 @@ const boostrap = async (api, secret_name, secret_value) => {
     if (response.status >= 400) {
       Core.setFailed(response.data)
     } else {
-      Core.setOutput('status', response.status);
-      Core.setOutput('data', response.data);
+      Core.setOutput('status', response.status)
+      Core.setOutput('data', response.data)
     }
 
-  }catch (e) {
+  } catch (e) {
     Core.setFailed(e.message)
     console.error(e)
   }
