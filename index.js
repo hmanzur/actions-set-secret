@@ -1,4 +1,4 @@
-const core = require('@actions/core')
+const Core = require('@actions/Core')
 const Api = require('./src/api')
 
 /**
@@ -13,19 +13,27 @@ const boostrap = async (api, secret_name, secret_value) => {
 
     const data = await api.createSecret(key_id, key, secret_name, secret_value)
 
+    if (api.isOrg()) {
+      data.visibility = Core.getInput('visibility')
+
+      if (data.visibility === 'selected') {
+        data.selected_repository_ids = Core.getInput('selected_repository_ids')
+      }
+    }
+
     const response = await api.setSecret(data, secret_name)
 
     console.error(response.status, response.data)
 
-    if (response.status > 400) {
-      core.setFailed(response.data)
+    if (response.status >= 400) {
+      Core.setFailed(response.data)
     } else {
-      core.setOutput('status', response.status);
-      core.setOutput('data', response.data);
+      Core.setOutput('status', response.status);
+      Core.setOutput('data', response.data);
     }
 
   }catch (e) {
-    core.setFailed(e.message)
+    Core.setFailed(e.message)
     console.error(e)
   }
 }
@@ -33,16 +41,16 @@ const boostrap = async (api, secret_name, secret_value) => {
 
 try {
   // `who-to-greet` input defined in action metadata file
-  const name = core.getInput('name')
-  const value = core.getInput('value')
-  const repository = core.getInput('repository')
-  const token = core.getInput('token')
-  const org = core.getInput('org')
+  const name = Core.getInput('name')
+  const value = Core.getInput('value')
+  const repository = Core.getInput('repository')
+  const token = Core.getInput('token')
+  const org = Core.getInput('org')
 
-  const api = new Api(token, repository, org)
+  const api = new Api(token, repository, !!org)
 
   boostrap(api, name, value)
 
 } catch (error) {
-  core.setFailed(error.message)
+  Core.setFailed(error.message)
 }

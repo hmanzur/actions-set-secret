@@ -30,6 +30,14 @@ inputs:
     description: Repository access token
     required: true
 
+  visibility:
+    description: For orgs only. Indicate access level all, private or selected
+    required: false
+
+  selected_repository_ids:
+    description: Array of repository ids in case you set visibility as selected
+    required: false
+
 outputs:
   code:
     description: Status code
