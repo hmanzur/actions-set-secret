@@ -4,7 +4,8 @@
   "repository": "https://github.com/hmanzur/actions-set-secret",
   "license": "MIT License",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "ncc build index.js -o dist"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
@@ -21,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "rm -rf dist && lint-staged",
       "post-commit": "npm i"
     }
   },
@@ -29,9 +30,8 @@
     "*/*.js": [
       "eslint . --fix",
       "rm -rf node_modules",
-      "rm -rf dist",
       "npm i -only=prod",
-      "ncc build index.js -o dist/index.js"
+      "ncc build index.js -o dist"
     ]
   }
 }
