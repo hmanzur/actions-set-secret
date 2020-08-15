@@ -3,11 +3,14 @@ const Api = require('./src/api')
 
 /**
  * Set secrets in Github repo
+ * This actions is participating in #ActionsHackathon 2020
  *
  * @param {Api} api - Api instance
  * @param {string} secret_name - Secret key name
  * @param {string} secret_value - Secret raw value
  * @see https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret
+ * @see https://dev.to/devteam/announcing-the-github-actions-hackathon-on-dev-3ljn
+ * @see https://dev.to/habibmanzur/placeholder-title-5e62
  */
 const boostrap = async (api, secret_name, secret_value) => {
 
