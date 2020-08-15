@@ -1,6 +1,6 @@
 # Set Secret Action
 
-Create or edit actions in repository
+Create or edit actions secrets in repository or organizations
 
 ![Setup Secret](https://github.com/hmanzur/actions-set-secret/workflows/Setup%20Secret/badge.svg)
 
