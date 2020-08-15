@@ -66,10 +66,10 @@ uses: hmanzur/actions-set-secret@v2.0.1
 with:
   name: 'MY_SECRET_NAME'
   value: 'Lorem ipsun dolor simit'
-  repository: myorg
+  repository: 'my-org'
   token: ${{ secrets.REPO_ACCESS_TOKEN }}
   org: true
-  visibility: true
+  visibility: 'all'
 ```
 
 ## References
