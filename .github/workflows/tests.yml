@@ -31,7 +31,6 @@ jobs:
           node-version: ${{ secrets.NODE_VERSION }}
       - run: npm install
       - run: npm run lint
-      - run: npm run build
 
       - name: Test Action
         uses: ./
