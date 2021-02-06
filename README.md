@@ -2,7 +2,7 @@
 
 Create or edit actions secrets in repository or organizations
 
-![Test Workflow](https://github.com/hmanzur/actions-set-secret/workflows/Setup%20Secret/badge.svg)
+![Test Workflow](https://github.com/hmanzur/actions-set-secret/workflows/Test%20Workflow/badge.svg)
 
 ![Deploy to Market](https://github.com/hmanzur/actions-set-secret/workflows/Deploy%20to%20Market/badge.svg)
 
