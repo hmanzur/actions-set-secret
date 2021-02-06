@@ -46,9 +46,13 @@ jobs:
             README.md
             dist/
 
+
   deploy:
     name: Deploy Bundle
     runs-on: ubuntu-latest
+    needs:
+      - test
+      - build
 
     steps:
       - name: Download Bundle
