@@ -22,12 +22,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "rm -rf dist && lint-staged && ncc build index.js -o dist",
-      "post-commit": "npm i"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*/*.js": [
+    "src/*.js": [
       "eslint . --fix"
     ]
   }

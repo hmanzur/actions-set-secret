@@ -1,1 +1,62 @@
+name: Deploy to Market
 
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+      - run: npm install
+      - run: npm lint
+
+  build:
+    name: Set Secret test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+      - run: npm i -g @vercel/ncc
+      - run: npm install --production
+      - run: npm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: bundle
+          path: |
+            action.yml
+            README.md
+            dist/
+
+  deploy:
+    name: Set Secret test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Bundle
+        uses: actions/download-artifact@v2
+        with:
+          name: bundle
+
+      - name: Upload Dist
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bundle
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
