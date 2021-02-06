@@ -31,6 +31,8 @@ jobs:
           node-version: ${{ secrets.NODE_VERSION }}
       - run: npm install
       - run: npm run lint
+      - run: npm i -g @vercel/ncc
+      - run: npm run build
 
       - name: Test Action
         uses: ./
