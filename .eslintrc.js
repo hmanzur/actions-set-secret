@@ -1,7 +1,7 @@
 module.exports = {
   parserOptions: {
     ecmaVersion: 2017,
-    sourceType: "module"
+    sourceType: 'module'
   },
   env: {
     node: true
@@ -9,7 +9,7 @@ module.exports = {
   overrides: [
     {
       files: [
-        "**/*.spec.js"
+        '**/*.spec.js'
       ],
       env: {
         jest: true
@@ -17,36 +17,36 @@ module.exports = {
     }
   ],
   extends: [
-    "plugin:jsdoc/recommended",
-    "strongloop"
+    'plugin:jsdoc/recommended',
+    'strongloop'
   ],
   plugins: [
-    "jsdoc"
+    'jsdoc'
   ],
   rules: {
-    'max-len': ["error", { "code": 150 }],
+    'max-len': ['error', { code: 150 }],
     indent: [
-      "error", 2,
+      'error', 2,
       {SwitchCase: 1}
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
+    'linebreak-style': [
+      'error',
+      'unix'
     ],
     quotes: [
-      "error",
-      "single"
+      'error',
+      'single'
     ],
     semi: [
-      "error",
-      "never"
+      'error',
+      'never'
     ],
-    "comma-dangle": ["error", "never"],
-    "space-before-function-paren": ["error", {
-      anonymous: "never",
-      named: "never",
-      asyncArrow: "always"
+    'comma-dangle': ['error', 'never'],
+    'space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always'
     }],
-    "jsdoc/no-undefined-types": 0
+    'jsdoc/no-undefined-types': 0
   }
 }
