@@ -60,6 +60,10 @@ jobs:
           name: bundle
           path: /app/bundle
 
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: /app/bundle
+
       - name: Upload Bundle to Release ${{ github.ref }}
         uses: svenstaro/upload-release-action@v2
         with:
