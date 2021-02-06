@@ -58,17 +58,17 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: bundle
-          path: /app/bundle
+          path: app/bundle
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: /app/bundle
+        working-directory: app/bundle
 
       - name: Upload Bundle to Release ${{ github.ref }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /app/bundle
+          file: app/bundle
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
