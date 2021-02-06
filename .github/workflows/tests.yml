@@ -1,4 +1,4 @@
-name: "Setup Secret"
+name: Test Workflow
 
 on:
   push:
@@ -26,13 +26,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
+      - name: Setup Node v${{ secrets.NODE_VERSION }}
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ secrets.NODE_VERSION }}
-      - run: npm install
-      - run: npm run lint
-      - run: npm i -g @vercel/ncc
-      - run: npm run build
+
+      - run: |
+          npm i -g @vercel/ncc
+          npm install
+      - name: Run linters
+        run: npm run lint
+
+      - name: Create Dist
+        run: npm run build
 
       - name: Test Action
         uses: ./

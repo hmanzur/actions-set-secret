@@ -1,4 +1,4 @@
-const Core = require('@actions/Core')
+const Core = require('@actions/core')
 const Api = require('./src/api')
 
 /**
