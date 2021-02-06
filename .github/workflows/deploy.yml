@@ -5,6 +5,8 @@ on:
     tags:
       - '*'
 
+  workflow_dispatch:
+
 jobs:
   test:
     name: Run tests
@@ -17,7 +19,7 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION }}
       - run: npm install
-      - run: npm lint
+      - run: npm run lint
 
   build:
     name: Set Secret test
