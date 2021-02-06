@@ -11,9 +11,9 @@ on:
   pull_request:
     branches:
       - master
-      paths-ignore:
-        - "*.md"
-        - LICENCE
+    paths-ignore:
+      - "*.md"
+      - LICENCE
 
   workflow_dispatch:
 
