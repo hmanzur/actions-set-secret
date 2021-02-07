@@ -60,7 +60,7 @@ jobs:
         run: |
           git add .
           git commit -m "Auto commit from Github Actions #${{ github.run_id }}"
-          git push origin release/${{ github.event.inputs.version }}
+          git push origin release/${{ github.event.inputs.version }} -f
 
   deploy:
     name: Deploy Bundle
