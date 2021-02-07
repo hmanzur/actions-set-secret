@@ -40,11 +40,9 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: bundle
-          path: |
-            action.yml
-            README.md
-            dist/
+          name: dist
+          path: dist/
+
   # https://github.com/actions/upload-release-asset
   deploy:
     name: Deploy Bundle
@@ -58,19 +56,32 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: bundle
-          path: app/bundle
+          path: dist
 
       - name: Zip bundle
-        run: zip --junk-paths bundle app/bundle/*
+        run: zip -r dist dist/*
 
-      - name: Create Release
+      - name: Create Release v${{ github.ref }}
         id: create_release
+        if: github.event_name == 'tags'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: v${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Create Stage Release stage/${{ github.run_id }}
+        id: create_release
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+        with:
+          tag_name: ${{ github.run_id }}
+          release_name: stage/${{ github.run_id }}
           draft: false
           prerelease: false
 
@@ -81,6 +92,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./bundle.zip
-          asset_name: bundle.zip
+          asset_path: ./dist.zip
+          asset_name: dist.zip
           asset_content_type: application/zip
