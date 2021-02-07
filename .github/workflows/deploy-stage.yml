@@ -48,23 +48,25 @@ jobs:
       - build
 
     steps:
+      - name: Set Time
+        run: echo "$(date + "%Y-%m-%d")" >> $TIME
       - name: Download Bundle
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: dist
           path: dist
 
       - name: Zip bundle
         run: zip -r dist dist/*
 
-      - name: Create Stage Release stage/${{ github.run_id }}
+      - name: Create Stage Release stage/${TIME}.${{ github.run_id }}
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
-          tag_name: ${{ github.run_id }}
-          release_name: stage/${{ github.run_id }}
+          tag_name: stage/${TIME}.${{ github.run_id }}
+          release_name: stage/${TIME}.${{ github.run_id }}
           draft: false
           prerelease: false
 
