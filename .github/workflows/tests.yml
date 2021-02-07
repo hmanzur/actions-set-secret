@@ -1,50 +1,38 @@
 name: Test Workflow
 
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - .github/workflows/*.yml
-      - "*.md"
-      - LICENCE
-
-  pull_request:
-    branches:
-      - master
-    paths-ignore:
-      - .github/workflows/*.yml
-      - "*.md"
-      - LICENCE
-
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to test'
+        required: true
+        default: 'master'
 
 jobs:
-  pretest:
+  upload:
     name: Set Secret test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Node v${{ secrets.NODE_VERSION }}
-        uses: actions/setup-node@v2
+      # stage/2021-02-07.545783951
+      - name: Test Workflow ${{ github.event.inputs.version }}
+        uses: hmanzur/actions-set-secret@v2.0.2
         with:
-          node-version: ${{ secrets.NODE_VERSION }}
-
-      - run: |
-          npm i -g @vercel/ncc
-          npm install
-      - name: Run linters
-        run: npm run lint
-
-      - name: Create Dist
-        run: npm run build
-
-      - name: Test Action
-        uses: ./
-        with:
-          name:  LAST_RUN_ID
-          value: ${{ github.run_id }}
+          name: 'LAST_TEST_VERSION'
+          value: ${{ github.event.inputs.version }}
+          repository: hmanzur/actions-set-secret
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+  validate:
+    name: Set Secret test
+    runs-on: ubuntu-latest
+    needs:
+      - upload
+
+    steps:
+      - name: Validation Failed
+        if: ${{ github.event.inputs.version }} ==  ${{ secrets.LAST_TEST_VERSION }}
+        run: exit 1
+
+      - name: Test Success
+        run: exit 0
