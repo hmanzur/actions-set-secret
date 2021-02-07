@@ -31,6 +31,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Git
+        run: |
+          git config --global user.email "${{ github.actor }}"
+          git config --global user.name "${{ github.repository_owner }}"
+          git checkout -b release/${{ github.event.inputs.version }}
+
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ secrets.NODE_VERSION }}
@@ -46,9 +52,6 @@ jobs:
 
       - name: Git Create Release release/
         run: |
-          git checkout -b release/${{ github.event.inputs.version }}
-          git config --global user.email "${{ github.actor }}"
-          git config --global user.name "${{ github.repository_owner }}"
           git add .
           git commit -m "Auto commit from Github Actions #${{ github.run_id }}"
           git push origin release/${{ github.event.inputs.version }}
@@ -70,8 +73,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ github.event.inputs.version }}
+          tag_name: v${{ github.event.inputs.version }}
+          release_name: v${{ github.event.inputs.version }}
           body: |
             Created on ${{ env.TIME }} using automated Workflow
           draft: false
