@@ -51,13 +51,14 @@ jobs:
           rm .gitignore
           rm -Rf node_modules/
           rm -Rf .github
+          rm index.js
 
       - name: Git Create Branch release/${{ github.event.inputs.version }}
         run: |
           git add .
           git commit -m "Auto commit from Github Actions #${{ github.run_id }}"
           git push origin release/${{ github.event.inputs.version }} -f
-          git tag v${{ github.event.inputs.version }} release/${{ github.event.inputs.version }}
+        # git tag v${{ github.event.inputs.version }} release/${{ github.event.inputs.version }}
 
   deploy:
     name: Deploy Bundle
@@ -78,6 +79,7 @@ jobs:
         with:
           tag_name: v/${{ github.event.inputs.version }}
           release_name: v${{ github.event.inputs.version }}
+          commitish: release/${{ github.event.inputs.version }}
           body: |
             Created on ${{ env.TIME }} using automated Workflow by ${{ github.actor }}
           draft: false
