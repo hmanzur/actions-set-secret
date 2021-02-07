@@ -65,10 +65,9 @@ jobs:
         working-directory: app/bundle
 
       - name: Upload Bundle to Release ${{ github.ref }}
-        uses: svenstaro/upload-release-action@v2
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: app/bundle
-          tag: ${{ github.ref }}
-          overwrite: true
-          file_glob: true
+          args:
+          - app/bundle/
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
