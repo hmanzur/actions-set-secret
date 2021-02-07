@@ -60,7 +60,7 @@ jobs:
 
       - name: Zip bundle
         run: zip -r dist dist/*
-<
+
       - name: Create Release v${{ github.ref }}
         id: create_release
         if: github.event_name == 'tags'
