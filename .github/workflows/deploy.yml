@@ -50,9 +50,10 @@ jobs:
         run: |
           rm .gitignore
           rm index.js
+          rm .eslintrc.js
           rm -Rf src/
           rm -Rf node_modules/
-          rm .eslintrc.js
+          rm -Rf .github/
           rm package*
 
       - name: Git Create Branch release/${{ github.event.inputs.version }}
