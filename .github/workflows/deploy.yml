@@ -45,7 +45,7 @@ jobs:
             action.yml
             README.md
             dist/
-
+  # https://github.com/actions/upload-release-asset
   deploy:
     name: Deploy Bundle
     runs-on: ubuntu-latest
@@ -60,15 +60,27 @@ jobs:
           name: bundle
           path: app/bundle
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: app/bundle
+      - name: Zip bundle
+        run: zip --junk-paths bundle app/bundle/*
 
-      - name: Upload Bundle to Release ${{ github.ref }}
-        uses: svenstaro/upload-release-action@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: app/bundle
-          tag: ${{ github.ref }}
-          overwrite: true
-          file_glob: true
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./bundle.zip
+          asset_name: bundle.zip
+          asset_content_type: application/zip
