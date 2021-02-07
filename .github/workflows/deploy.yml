@@ -37,12 +37,14 @@ jobs:
           git config --global user.name "${{ github.repository_owner }}"
           git checkout -b release/${{ github.event.inputs.version }}
 
-      - uses: actions/setup-node@v2
+      - name: Test and Build
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ secrets.NODE_VERSION }}
-      - run: npm i -g @vercel/ncc
-      - run: npm install --production
-      - run: npm run build
+      - run: |
+          npm i -g @vercel/ncc
+          npm install --production
+          npm run build
 
       - name: Clean files
         run: |
@@ -50,7 +52,7 @@ jobs:
           rm -Rf src
           rm .eslintrc.js
 
-      - name: Git Create Release release/
+      - name: Git Create Branch release/${{ github.event.inputs.version }}
         run: |
           git add .
           git commit -m "Auto commit from Github Actions #${{ github.run_id }}"
