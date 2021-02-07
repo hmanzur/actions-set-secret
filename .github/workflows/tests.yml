@@ -12,7 +12,7 @@ on:
     branches:
       - master
     paths-ignore:
-      - .github/workflows/deploy.yml
+      - .github/workflows/deploy-prod.yml
       - "*.md"
       - LICENCE
 

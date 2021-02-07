@@ -1,0 +1,13 @@
+name: Create new Release
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  dispatch:
+    name: Set Secret test
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: On build

@@ -1,10 +1,6 @@
-name: Deploy to Market
+name: Deploy to Stage
 
 on:
-  push:
-    tags:
-      - '*'
-
   workflow_dispatch:
 
 jobs:
@@ -61,21 +57,8 @@ jobs:
       - name: Zip bundle
         run: zip -r dist dist/*
 
-      - name: Create Release v${{ github.ref }}
-        id: create_release
-        if: github.event_name == 'tags'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: v${{ github.ref }}
-          draft: false
-          prerelease: false
-
       - name: Create Stage Release stage/${{ github.run_id }}
         id: create_release
-        if: github.event_name == 'workflow_dispatch'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
