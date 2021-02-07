@@ -75,9 +75,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         with:
-          tag_name: release/${{ github.event.inputs.version }}
+          tag_name: v/${{ github.event.inputs.version }}
           release_name: v${{ github.event.inputs.version }}
           body: |
-            Created on ${{ env.TIME }} using automated Workflow
+            Created on ${{ env.TIME }} using automated Workflow by ${{ github.actor }}
           draft: false
           prerelease: false
