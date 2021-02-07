@@ -49,18 +49,14 @@ jobs:
       - name: Clean files
         run: |
           rm .gitignore
-          rm index.js
-          rm .eslintrc.js
-          rm -Rf src/
           rm -Rf node_modules/
-          rm -Rf .github/
-          rm package*
 
       - name: Git Create Branch release/${{ github.event.inputs.version }}
         run: |
           git add .
           git commit -m "Auto commit from Github Actions #${{ github.run_id }}"
           git push origin release/${{ github.event.inputs.version }} -f
+          git tag -a v${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
 
   deploy:
     name: Deploy Bundle
