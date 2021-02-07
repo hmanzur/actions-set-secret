@@ -29,8 +29,10 @@ jobs:
 
     steps:
       - name: Validation Failed
-        if: ${{ github.event.inputs.version }} != ${{ secrets.LAST_TEST_VERSION }}
+        if: ${{ github.event.inputs.version }} != ${{ env.VERSION }}
         run: exit 1
+        env:
+          VERSION: ${{secrets.LAST_TEST_VERSION}}
 
       - name: Test Success
         run: exit 0
