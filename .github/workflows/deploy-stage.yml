@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Set Time
-        run: echo "TIME=$(date + "%Y-%m-%d")" >> $GITHUB_ENV
+        run: echo "TIME=$(date --rfc-3339=date)" >> $GITHUB_ENV
 
       - name: Download Bundle
         uses: actions/download-artifact@v2
