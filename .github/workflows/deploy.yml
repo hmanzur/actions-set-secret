@@ -48,9 +48,12 @@ jobs:
 
       - name: Clean files
         run: |
+          rm .gitignore
           rm index.js
-          rm -Rf src
+          rm -Rf src/
+          rm -Rf node_modules/
           rm .eslintrc.js
+          rm package*
 
       - name: Git Create Branch release/${{ github.event.inputs.version }}
         run: |
